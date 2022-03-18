@@ -12,7 +12,7 @@ private val compileCommand = listOf("C:\\Program Files\\Maven\\bin\\mvn.cmd", "c
 private val listBenchmarksCommand = listOf("java", "-jar", "target\\benchmarks.jar", "-l")
 private val supportedLanguages = listOf("java", "scala")
 
-private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalOwn\\Run_2022-03-04_18-45-19")
+private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalOwn\\Run_2022-03-18_11-30-46")
 private val baseOutcomesPath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\measurements\\raw")
 
 fun main () {
@@ -30,6 +30,7 @@ fun main () {
         if (!wasDeleted) throw IllegalStateException("Couldn't delete $it")
     }
 
+    println("chcp 65001")
     supportedLanguages.forEach { language ->
         val projectDir = baseCodePath.add(projectName(language)).toFile()
         val processBuilder = ProcessBuilder().directory(projectDir)
@@ -43,8 +44,8 @@ fun main () {
             .toSet()
         benchmarks.forEach {
             val absoluteProjectPath = projectDir.absolutePath.replace("\\", "/")
-            val absoluteOutcomePath = baseOutcomesPath.add("$it.csv").toString()
-            println("java -jar $absoluteProjectPath/target/benchmarks.jar $it >>:8 $absoluteOutcomePath 2>&1")
+            val absoluteOutcomePath = baseOutcomesPath.add("$it.txt").toString().replace("\\", "/")
+            println("java -jar $absoluteProjectPath/target/benchmarks.jar $it >> $absoluteOutcomePath 2>&1")
         }
     }
 
