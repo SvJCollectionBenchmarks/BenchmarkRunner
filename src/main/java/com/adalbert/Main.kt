@@ -3,7 +3,7 @@ package com.adalbert
 import java.nio.file.Files
 import java.nio.file.Paths
 
-private const val disableOverrideCheck = true
+private const val disableOverrideCheck = false
 
 private val projectName = { language: String -> "jmh-$language" }
 private val alphabet = ('a' .. 'z').union('A' .. 'Z').union('0' .. '9')
@@ -12,7 +12,7 @@ private val compileCommand = listOf("C:\\Program Files\\Maven\\bin\\mvn.cmd", "c
 private val listBenchmarksCommand = listOf("java", "-jar", "target\\benchmarks.jar", "-l")
 private val supportedLanguages = listOf("java", "scala")
 
-private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalPolya\\Run_2022-04-02_20-24-45\\")
+private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalPolya\\Run_2022-04-10_17-51-33\\")
 private val baseOutcomesPath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\measurements\\raw")
 
 fun main () {
@@ -31,14 +31,13 @@ fun main () {
         if (!wasDeleted) throw IllegalStateException("Couldn't delete $it")
     }
 
-    println("chcp 65001")
     supportedLanguages.forEach { language ->
         val projectDir = baseCodePath.add(projectName(language)).toFile()
         val processBuilder = ProcessBuilder().directory(projectDir)
-        val compileStream = processBuilder.command(compileCommand).startWaitAndRedirect(10)
+        val compileStream = processBuilder.command(compileCommand).startWaitAndRedirect(40)
 //        print(String(compileStream.readNBytes(compileStream.available())))
-        val listingStream = processBuilder.command(listBenchmarksCommand).startWaitAndRedirect(3)
-        val benchmarksRaw = String(listingStream.readNBytes(listingStream.available()))
+        val listingStream = processBuilder.command(listBenchmarksCommand).startWaitAndRedirect(5)
+        val benchmarksRaw = String(listingStream.readAllBytes())
         val benchmarks = benchmarksRaw
             .substringAfterLast("Benchmarks:").trim().lines()
             .map { it.substringBeforeLast('.').substringAfterLast('.') }
