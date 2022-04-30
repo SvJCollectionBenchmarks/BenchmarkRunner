@@ -12,7 +12,7 @@ private val compileCommand = listOf("C:\\Program Files\\Maven\\bin\\mvn.cmd", "c
 private val listBenchmarksCommand = listOf("java", "-jar", "target\\benchmarks.jar", "-l")
 private val supportedLanguages = listOf("java", "scala")
 
-private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\singleOperational\\Run_2022-04-22_20-09-50\\")
+private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalTypes\\Run_2022-04-29_19-05-14\\")
 private val baseOutcomesPath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\measurements\\raw")
 
 fun deleteFilesNotDirectories(path: Path) {
@@ -28,6 +28,7 @@ fun main () {
     val baseCodeString = baseCodePath.toString()
     val finalOutputsPath = if (baseCodeString.contains("polya", true)) baseOutcomesPath.add("polya")
         else if (baseCodeString.contains("single", true)) baseOutcomesPath.add("single")
+        else if (baseCodeString.contains("types", true)) baseOutcomesPath.add("types")
         else baseOutcomesPath.add("own")
 
     if (!disableOverrideCheck) {
