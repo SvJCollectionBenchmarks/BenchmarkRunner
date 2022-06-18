@@ -12,7 +12,7 @@ private val compileCommand = listOf("C:\\Program Files\\Maven\\bin\\mvn.cmd", "c
 private val listBenchmarksCommand = listOf("java", "-jar", "target\\benchmarks.jar", "-l")
 private val supportedLanguages = listOf("java", "scala")
 
-private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalTypes\\Run_2022-04-29_19-05-14\\")
+private val baseCodePath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\generated\\multiOperationalOwn\\Run_2022-05-07_11-27-23\\")
 private val baseOutcomesPath = Paths.get("C:\\Users\\wojci\\source\\master-thesis\\measurements\\raw")
 
 fun deleteFilesNotDirectories(path: Path) {
